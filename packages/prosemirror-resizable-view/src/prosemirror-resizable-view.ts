@@ -179,7 +179,11 @@ export abstract class ResizableNodeView implements NodeView {
       let newWidth: number | null = null;
       let newHeight: number | null = null;
 
-      if (this.aspectRatio === ResizableRatioType.Fixed && startWidth && startHeight) {
+      if (this.aspectRatio === ResizableRatioType.Fixed && (!startWidth || !startHeight)) {
+        return;
+      }
+
+      if (this.aspectRatio === ResizableRatioType.Fixed) {
         switch (handle.type) {
           case ResizableHandleType.Right:
           case ResizableHandleType.BottomRight:
@@ -221,7 +225,7 @@ export abstract class ResizableNodeView implements NodeView {
       if (typeof newWidth === 'number' && newWidth < MIN_WIDTH) {
         newWidth = MIN_WIDTH;
 
-        if (this.aspectRatio === ResizableRatioType.Fixed && startWidth && startHeight) {
+        if (this.aspectRatio === ResizableRatioType.Fixed) {
           newHeight = (startHeight / startWidth) * newWidth;
         }
       }
