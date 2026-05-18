@@ -219,11 +219,10 @@ export abstract class ResizableNodeView implements NodeView {
       }
 
       if (typeof newWidth === 'number' && newWidth < MIN_WIDTH) {
+        newWidth = MIN_WIDTH;
+
         if (this.aspectRatio === ResizableRatioType.Fixed && startWidth && startHeight) {
-          newWidth = MIN_WIDTH;
           newHeight = (startHeight / startWidth) * newWidth;
-        } else if (this.aspectRatio === ResizableRatioType.Flexible) {
-          newWidth = MIN_WIDTH;
         }
       }
 
